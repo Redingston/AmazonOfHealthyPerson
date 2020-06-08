@@ -10,9 +10,12 @@ namespace Domain.Entities
         public Country()
         {
             Cities = new HashSet<City>();
+            Brands = new HashSet<Brand>();
         }
         public long Id { get; set; }
         public string Name { get; set; }
+
         public ICollection<City> Cities { get; set; }
+        public ICollection<Brand> Brands { get; set; }
     }
 }

@@ -10,7 +10,7 @@ namespace Domain.Entities
         public string Name { get; set; }
         public string FullName { get; set; }
 
-        public string CountryRegistration { get; set; }
+        public long CountryRegistrationId { get; set; }
         public Country Country { get; set; }
     }
 }

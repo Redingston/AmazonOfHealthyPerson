@@ -9,8 +9,9 @@ namespace Domain.Entities
         public Product()
         {
             Photos = new List<string>();
-            Categories = new HashSet<PCategory>();
+            Categories = new HashSet<ProductToCategory>();
             Tags = new HashSet<PTag>();
+            Baskets = new HashSet<BasketToProduct>();
         }
         public long Id { get; set; }
         public string Name { get; set; }
@@ -22,13 +23,11 @@ namespace Domain.Entities
         public long BrandId { get; set; }
         public Brand Brand { get; set; }
 
-        public long CategoryId { get; set; }
-        public ICollection<PCategory> Categories { get; set; }
-
-        public long TagId { get; set; }
-        public ICollection<PTag> Tags { get; set; }
-
-        public PTechicalDetail TechicalDetail { get; set; }
+        public PTechnicalDetail TechicalDetail { get; set; }
         public PAdditionalInformaion AdditionalInformaion { get; set; }
+
+        public ICollection<BasketToProduct> Baskets { get; set; }
+        public ICollection<ProductToCategory> Categories { get; set; }
+        public ICollection<PTag> Tags { get; set; }
     }
 }

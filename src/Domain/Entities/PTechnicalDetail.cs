@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Domain.Entities
 {
-    public class PTechicalDetail
+    public class PTechnicalDetail
     {
         public long Id { get; set; }
 

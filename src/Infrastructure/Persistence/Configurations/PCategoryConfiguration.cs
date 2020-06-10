@@ -16,9 +16,7 @@ namespace Infrastructure.Persistence.Configurations
                 .IsRequired();
 
             builder.HasMany(e => e.Products)
-                .WithOne(e => e.Category)
-                .HasForeignKey(e => e.ProductId)
-                .IsRequired();
+                .WithOne(e => e.Category);
         }
     }
 }

@@ -15,6 +15,7 @@ namespace Domain.Entities
         public long Id { get; set; }
         public string Name { get; set; }
 
+        public UserProfile UserProfile { get; set; }
         public ICollection<City> Cities { get; set; }
         public ICollection<Brand> Brands { get; set; }
     }

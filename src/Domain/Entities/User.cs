@@ -7,6 +7,7 @@ namespace Domain.Entities
 {
     public class User: IdentityUser<long>
     {
+        public UserProfile UserProfile { get; set; }
         public ICollection<UserToRole> UserToRoles { get; set; }
     }
 }

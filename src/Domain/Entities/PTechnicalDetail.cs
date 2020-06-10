@@ -10,5 +10,6 @@ namespace Domain.Entities
 
         public long CountryId { get; set; }
         public Country CountryProducer { get; set; }
+        public Product Product { get; set; }
     }
 }

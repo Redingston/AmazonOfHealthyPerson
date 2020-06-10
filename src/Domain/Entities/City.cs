@@ -17,6 +17,8 @@ namespace Domain.Entities
         public long CountryId { get; set; }
         public Country Country { get; set; }
 
+        public UserProfile UserProfile { get; set; }
+
         public ICollection<Street> Streets { get; set; }
     }
 }

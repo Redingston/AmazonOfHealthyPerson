@@ -5,11 +5,16 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Application.Common.Interfaces;
+using Domain.Entities;
+using Infrastructure.Persistence;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -27,15 +32,18 @@ namespace WebUI
         public IConfiguration Configuration;
         public void ConfigureServices(IServiceCollection services)
         {
+            var connectionStringName = "AOHP";
             services.AddControllers();
-            services.AddDbContext<ApplicationDbContext>(options =>
-                 options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<IAOHPDbContext, ApplicationDBContext>(options =>
+               options.UseSqlServer(Configuration.GetConnectionString(connectionStringName),
+                   x => x.MigrationsAssembly("YPS.Persistence")
+               ));
 
-            services.AddIdentity<DbUser, DbRole>(options => options.Stores.MaxLengthForKeys = 128)
-                .AddEntityFrameworkStores<ApplicationDbContext>()
+            services.AddIdentity<User, Role>(options => options.Stores.MaxLengthForKeys = 128)
+                .AddEntityFrameworkStores<ApplicationDBContext>()
                 .AddDefaultTokenProviders();
-
-            services.AddTransient<IJWTTokenService, JWTTokenService>();
+            services.AddScoped<RoleManager<Role>>();
+            //services.AddTransient<IJWTTokenService, JWTTokenService>();
 
             var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration.GetValue<string>("SecretPhrase")));
 
@@ -46,12 +54,16 @@ namespace WebUI
                 options.Password.RequiredUniqueChars = 0;
             });
 
+            //services.AddDefaultIdentity<User>()
+            //    .AddEntityFrameworkStores<ApplicationDBContext>();
+
+            //services.AddIdentityServer().AddApiAuthorization<User, ApplicationDBContext>();
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(cfg =>
-            {
+                {
                 cfg.RequireHttpsMetadata = false;
                 cfg.SaveToken = true;
                 cfg.TokenValidationParameters = new TokenValidationParameters()
@@ -65,7 +77,6 @@ namespace WebUI
                     ClockSkew = TimeSpan.Zero
                 };
             });
-            var connectionStringName = "AOHP";
             services.AddSwaggerGen(c =>
             { 
                 c.SwaggerDoc("v1", new OpenApiInfo
@@ -138,16 +149,12 @@ namespace WebUI
                     ValidateIssuer = false,
                     ValidateAudience = false
                 };
-            }).;
+            });
             services.Configure<ApiBehaviorOptions>(options =>
             {
                 options.SuppressModelStateInvalidFilter = true;
             });
            
-            //services.AddDbContext<IYPSDbContext, YPSDbContext>(options =>
-            //    options.UseSqlServer(Configuration.GetConnectionString(connectionStringName),
-            //        x => x.MigrationsAssembly("YPS.Persistence")
-            //    ));
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy",
@@ -171,7 +178,7 @@ namespace WebUI
             app.UseHttpsRedirection();
             app.UseRouting();
             //app.UseAuthentication();
-            app.UseIdentityServer();
+            //app.UseIdentityServer();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {

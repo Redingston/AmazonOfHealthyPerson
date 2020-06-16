@@ -34,13 +34,13 @@ namespace WebUI
         {
             var connectionStringName = "AOHP";
             services.AddControllers();
-            services.AddDbContext<IAOHPDbContext, ApplicationDBContext>(options =>
+            services.AddDbContext<IAOHPDbContext, ApplicationDbContext>(options =>
                options.UseSqlServer(Configuration.GetConnectionString(connectionStringName),
                    x => x.MigrationsAssembly("YPS.Persistence")
                ));
 
             services.AddIdentity<User, Role>(options => options.Stores.MaxLengthForKeys = 128)
-                .AddEntityFrameworkStores<ApplicationDBContext>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
             services.AddScoped<RoleManager<Role>>();
             //services.AddTransient<IJWTTokenService, JWTTokenService>();

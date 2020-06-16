@@ -1,15 +1,31 @@
 ﻿using Application.Common.Interfaces;
 using Domain.Entities;
+using IdentityServer4.EntityFramework.Options;
+using Infrastructure.Identity;
+using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Infrastructure.Persistence
 {
-    public class ApplicationDBContext : DbContext, IAOHPDbContext
+    public class ApplicationDbContext : KeyApiAuthorizationDbContext<User, Role, long>, IAOHPDbContext
     {
-        public ApplicationDBContext(DbContextOptions<ApplicationDBContext> options) : base(options) { }
+        private readonly ICurrentUserService _currentUserService;
+
+        public ApplicationDbContext(
+            DbContextOptions options,
+            IOptions<OperationalStoreOptions> operationalStoreOptions,
+            ICurrentUserService currentUserService) : base(options, operationalStoreOptions)
+        {
+            _currentUserService = currentUserService;
+        }
         public DbSet<Basket> Baskets { get; set; }
         public DbSet<BasketToProduct> BasketToProducts { get; set; }
         public DbSet<Brand> Brands { get; set; }
@@ -30,9 +46,12 @@ namespace Infrastructure.Persistence
         public DbSet<User> Users { get; set; }
         public DbSet<UserProfile> Classes { get; set; }
         public DbSet<UserToRole> UserToRoles { get; set; }
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+
+        protected override void OnModelCreating(ModelBuilder builder)
         {
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDBContext).Assembly);
+            builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+            base.OnModelCreating(builder);
         }
     }
 }

@@ -1,4 +1,8 @@
-﻿using Infrastructure.Persistence;
+﻿using Application.Common.Interfaces;
+using Domain.Entities;
+using Infrastructure.Identity;
+using Infrastructure.Persistence;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,6 +26,18 @@ namespace Infrastructure
                         b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
             }
 
+            services.AddScoped<IAOHPDbContext>(provider => provider.GetService<ApplicationDbContext>());
+
+            services.AddDefaultIdentity<User>()
+                .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddIdentityServer()
+                .AddApiAuthorization<User, ApplicationDbContext>();
+
+            services.AddTransient<IIdentityService, IdentityService>();
+
+            services.AddAuthentication()
+                .AddIdentityServerJwt();
 
             return services;
         }

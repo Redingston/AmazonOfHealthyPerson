@@ -17,14 +17,10 @@ namespace Infrastructure.Persistence
 {
     public class ApplicationDbContext : KeyApiAuthorizationDbContext<User, Role, long>, IAOHPDbContext
     {
-        private readonly ICurrentUserService _currentUserService;
 
-        public ApplicationDbContext(
-            DbContextOptions options,
-            IOptions<OperationalStoreOptions> operationalStoreOptions,
-            ICurrentUserService currentUserService) : base(options, operationalStoreOptions)
+        public ApplicationDbContext(DbContextOptions options, IOptions<OperationalStoreOptions> operationalStoreOptions) : base(options, operationalStoreOptions)
         {
-            _currentUserService = currentUserService;
+          
         }
         public DbSet<Basket> Baskets { get; set; }
         public DbSet<BasketToProduct> BasketToProducts { get; set; }

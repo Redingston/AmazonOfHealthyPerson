@@ -22,6 +22,9 @@ namespace Infrastructure.Persistence.Configurations
             builder.HasOne(e => e.Country)
                 .WithMany(e => e.Cities)
                 .HasForeignKey(e => e.CountryId);
+
+            builder.HasMany(e => e.UserProfiles)
+                .WithOne(e => e.City);
         }
     }
 }

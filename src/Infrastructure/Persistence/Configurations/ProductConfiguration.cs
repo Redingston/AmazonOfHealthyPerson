@@ -32,6 +32,9 @@ namespace Infrastructure.Persistence.Configurations
                 .WithMany(e => e.Products)
                 .HasForeignKey(e => e.BrandId);
 
+            builder.HasMany(e => e.Photos)
+                .WithOne(e => e.Product);
+
             builder.HasOne(e => e.AdditionalInformaion)
                 .WithOne(e => e.Product);
 

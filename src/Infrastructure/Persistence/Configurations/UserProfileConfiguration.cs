@@ -37,9 +37,6 @@ namespace Infrastructure.Persistence.Configurations
 
             builder.HasOne(e => e.Country)
                .WithOne(e => e.UserProfile);
-
-            builder.HasOne(e => e.City)
-               .WithOne(e => e.UserProfile);
         }
     }
 }

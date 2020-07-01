@@ -8,7 +8,7 @@ namespace Domain.Entities
     {
         public Product()
         {
-            Photos = new List<string>();
+            Photos = new HashSet<Photo>();
             Categories = new HashSet<ProductToCategory>();
             Tags = new HashSet<ProductToTag>();
             Baskets = new HashSet<BasketToProduct>();
@@ -19,11 +19,11 @@ namespace Domain.Entities
         public ulong Price { get; set; }
         public ushort Amount { get; set; }
         public string Description { get; set; }
-        public List<string> Photos { get; set; }
 
         public long BrandId { get; set; }
         public Brand Brand { get; set; }
 
+        public ICollection<Photo> Photos { get; set; }
         public PTechnicalDetail TechicalDetail { get; set; }
         public PAdditionalInformaion AdditionalInformaion { get; set; }
 

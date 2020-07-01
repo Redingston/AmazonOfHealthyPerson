@@ -9,6 +9,7 @@ namespace Domain.Entities
         public City()
         {
             Streets = new HashSet<Street>();
+            UserProfiles = new HashSet<UserProfile>();
         }
         public long Id { get; set; }
         public string Name { get; set; }
@@ -17,7 +18,7 @@ namespace Domain.Entities
         public long CountryId { get; set; }
         public Country Country { get; set; }
 
-        public UserProfile UserProfile { get; set; }
+        public ICollection<UserProfile> UserProfiles { get; set; }
 
         public ICollection<Street> Streets { get; set; }
     }

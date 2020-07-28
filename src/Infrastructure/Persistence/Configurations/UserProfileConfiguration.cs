@@ -36,7 +36,7 @@ namespace Infrastructure.Persistence.Configurations
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(e => e.Country)
-               .WithOne(e => e.UserProfile);
+               .WithMany(e => e.UserProfiles);
         }
     }
 }

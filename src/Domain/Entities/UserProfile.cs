@@ -14,6 +14,8 @@ namespace Domain.Entities
         public string Photo { get; set; }
 
         public User User { get; set; }
+
+        public long CountryId { get; set; }
         public Country Country { get; set; }
         public City City { get; set; }
     }

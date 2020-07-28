@@ -36,10 +36,12 @@ namespace Infrastructure.Persistence.Configurations
                 .WithOne(e => e.Product);
 
             builder.HasOne(e => e.AdditionalInformaion)
-                .WithOne(e => e.Product);
+                .WithOne(e => e.Product)
+                .HasForeignKey<PAdditionalInformaion>(e=>e.ProductId);
 
             builder.HasOne(e => e.TechicalDetail)
-                .WithOne(e => e.Product);
+                .WithOne(e => e.Product)
+                .HasForeignKey<PTechnicalDetail>(e=>e.ProductId);
         }
     }
 }

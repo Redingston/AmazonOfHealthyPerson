@@ -11,11 +11,12 @@ namespace Domain.Entities
         {
             Cities = new HashSet<City>();
             Brands = new HashSet<Brand>();
+            UserProfiles = new HashSet<UserProfile>();
         }
         public long Id { get; set; }
         public string Name { get; set; }
 
-        public UserProfile UserProfile { get; set; }
+        public ICollection<UserProfile> UserProfiles { get; set; }
         public ICollection<City> Cities { get; set; }
         public ICollection<Brand> Brands { get; set; }
     }

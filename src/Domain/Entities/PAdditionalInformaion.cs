@@ -8,6 +8,7 @@ namespace Domain.Entities
     {
         public long Id { get; set; }
 
+        public long ProductId { get; set; }
         public Product Product { get; set; }
     }
 }

@@ -9,11 +9,17 @@ namespace Domain.Entities
         public City()
         {
             Streets = new HashSet<Street>();
+            UserProfiles = new HashSet<UserProfile>();
         }
         public long Id { get; set; }
         public string Name { get; set; }
-        public uint PostCode { get; set; }
-        public ICollection<Street> Streets { get; set; }
+        public string PostCode { get; set; }
+
+        public long CountryId { get; set; }
         public Country Country { get; set; }
+
+        public ICollection<UserProfile> UserProfiles { get; set; }
+
+        public ICollection<Street> Streets { get; set; }
     }
 }

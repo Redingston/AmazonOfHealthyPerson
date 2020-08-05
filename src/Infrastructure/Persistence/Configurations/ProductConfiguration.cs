@@ -35,13 +35,17 @@ namespace Infrastructure.Persistence.Configurations
             builder.HasMany(e => e.Photos)
                 .WithOne(e => e.Product);
 
+            builder.HasMany(e => e.Baskets)
+                .WithOne(e => e.Product);
+
             builder.HasOne(e => e.AdditionalInformaion)
                 .WithOne(e => e.Product)
                 .HasForeignKey<PAdditionalInformaion>(e=>e.ProductId);
 
             builder.HasOne(e => e.TechicalDetail)
                 .WithOne(e => e.Product)
-                .HasForeignKey<PTechnicalDetail>(e=>e.ProductId);
+                .HasForeignKey<PTechnicalDetail>(e=>e.ProductId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

@@ -48,6 +48,9 @@ namespace Infrastructure.Persistence
             builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
             base.OnModelCreating(builder);
+            builder.Entity<Basket>()
+                .Property(o => o.ToPay)
+                .HasColumnType("decimal(18,4)");
         }
     }
 }

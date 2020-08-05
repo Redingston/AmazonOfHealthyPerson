@@ -12,7 +12,8 @@ namespace Infrastructure.Persistence.Configurations
                 .WithOne(e => e.Basket)
                 .HasForeignKey<Order>(e => e.BasketId);
 
-            builder.HasMany(e => e.Products).WithOne(e => e.Basket);
+            builder.HasMany(e => e.Products)
+                .WithOne(e => e.Basket);
         }
     }
 }

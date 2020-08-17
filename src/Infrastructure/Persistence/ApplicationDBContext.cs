@@ -36,10 +36,10 @@ namespace Infrastructure.Persistence
         public DbSet<ProductToTag> ProductToTags { get; set; }
         public DbSet<PTag> Tags { get; set; }
         public DbSet<PTechnicalDetail> TechnicalDetails { get; set; }
-        public DbSet<Role> Roles { get; set; }
+        public override DbSet<Role> Roles { get; set; }
         public DbSet<ShippingFirm> ShippingFirms { get; set; }
         public DbSet<Street> Streets { get; set; }
-        public DbSet<User> Users { get; set; }
+        public override DbSet<User> Users { get; set; }
         public DbSet<UserProfile> Classes { get; set; }
         public DbSet<UserToRole> UserToRoles { get; set; }
 

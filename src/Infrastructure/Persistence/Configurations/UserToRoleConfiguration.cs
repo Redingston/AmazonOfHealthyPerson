@@ -20,6 +20,10 @@ namespace Infrastructure.Persistence.Configurations
                 .WithMany(e => e.UserToRoles)
                 .HasForeignKey(e => e.UserId)
                 .IsRequired();
+
+            builder.HasData(
+                new UserToRole() { RoleId = 1, UserId = 1 }
+                );
         }
     }
 }

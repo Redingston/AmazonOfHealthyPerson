@@ -13,6 +13,10 @@ namespace Infrastructure.Persistence.Configurations
         {
             builder.HasOne(e => e.UserProfile)
                 .WithOne(e => e.User);
+
+            builder.HasData(
+                new User { Id = 1, Email = "admin@gmail.com", UserName = "admin@gmail.com", PasswordHash = "admin10!", PhoneNumber = "038451269874",  }
+                );
         }
     }
 }

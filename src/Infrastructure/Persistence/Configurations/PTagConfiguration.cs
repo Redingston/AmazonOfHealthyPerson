@@ -17,6 +17,12 @@ namespace Infrastructure.Persistence.Configurations
 
             builder.HasMany(e => e.Products)
                 .WithOne(e => e.Tag);
+
+            builder.HasData(
+                new PTag { Id = 1, Name = "Discounts" },
+                new PTag { Id = 2, Name = "Super price" },
+                new PTag { Id = 3, Name = "Top sales" }
+                );
         }
     }
 }

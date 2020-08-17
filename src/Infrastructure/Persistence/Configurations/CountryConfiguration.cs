@@ -14,6 +14,14 @@ namespace Infrastructure.Persistence.Configurations
             builder.Property(e => e.Name)
                 .IsRequired()
                 .HasMaxLength(100);
+
+            builder.HasData(
+                new Country { Id = 1, Name="Taiwan" },
+                new Country { Id = 2, Name = "China" },
+                new Country { Id = 3, Name = "USA" },
+                new Country { Id = 4, Name = "Japan" },
+                new Country { Id = 5, Name = "Ukraine" }
+                );
         }
     }
 }

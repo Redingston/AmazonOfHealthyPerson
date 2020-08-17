@@ -23,10 +23,6 @@ namespace Infrastructure.Persistence.Configurations
                .IsRequired()
                .HasMaxLength(64);
 
-            builder.Property(e => e.Phone)
-              .IsRequired()
-              .HasMaxLength(32);
-
             builder.Property(e => e.Photo)
               .IsRequired();
 
@@ -36,6 +32,9 @@ namespace Infrastructure.Persistence.Configurations
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(e => e.Country)
+               .WithMany(e => e.UserProfiles);
+
+            builder.HasOne(e => e.City)
                .WithMany(e => e.UserProfiles);
         }
     }
